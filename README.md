@@ -1,18 +1,147 @@
+<div align="center">
+    <img src="doc/img/banner.png" width="70%" alt="Banner">
+</div>
+
 # flutter_media_session
 
 A powerful Flutter plugin for integrating your app with system-level media controls (lock screen, notification, media center) across Android, iOS, macOS, Windows, and Web.
 
 This plugin allows your app to display media metadata (title, artist, artwork) in the system's media center and respond to system actions like Play, Pause, Skip, and Seek.
 
-## Platform Support
+<h2>Platform Support</h2>
 
-| Platform | Support | Underlying API |
-| :--- | :--- | :--- |
-| **Android** | ✅ | [Media3 MediaSessionService](https://developer.android.com/media/media3/session/control-playback) |
-| **iOS** | ✅ | [MPNowPlayingInfoCenter](https://developer.apple.com/documentation/mediaplayer/mpnowplayinginfocenter) / [MPRemoteCommandCenter](https://developer.apple.com/documentation/mediaplayer/mpremotecommandcenter) |
-| **macOS** | ✅ | [MPNowPlayingInfoCenter](https://developer.apple.com/documentation/mediaplayer/mpnowplayinginfocenter) / [MPRemoteCommandCenter](https://developer.apple.com/documentation/mediaplayer/mpremotecommandcenter) |
-| **Windows** | ✅ | [SystemMediaTransportControls (SMTC)](https://learn.microsoft.com/en-us/windows/uwp/audio-video-camera/system-media-transport-controls) |
-| **Web** | ✅ | [Media Session API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API) |
+<table>
+  <thead>
+    <tr>
+      <th align="left">Platform</th>
+      <th align="left">Support</th>
+      <th align="left">Underlying API</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="doc/img/platform/head.svg" alt="Android" width="18" style="vertical-align: middle;">
+        <span style="vertical-align: middle;">Android</span>
+      </td>
+      <td>
+        <span style="
+          display: inline-block;
+          padding: 4px 10px;
+          border-radius: 8px;
+          background: #C4EED0;
+          color: #0F5223;
+          font-size: 13px;
+          font-weight: 500;
+        ">
+          Available
+        </span>
+      </td>
+      <td>
+        <a href="https://developer.android.com/media/media3/session/control-playback">
+          Media3 MediaSessionService
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="doc/img/platform/apple.svg" alt="Apple" width="18" style="vertical-align: middle;">
+        <span style="vertical-align: middle;">iOS / macOS</span>
+      </td>
+      <td>
+        <span style="
+          display: inline-block;
+          padding: 4px 10px;
+          border-radius: 8px;
+          background: #C4EED0;
+          color: #0F5223;
+          font-size: 13px;
+          font-weight: 500;
+        ">
+          Available
+        </span>
+      </td>
+      <td>
+        <a href="https://developer.apple.com/documentation/mediaplayer/mpnowplayinginfocenter">
+          MPNowPlayingInfoCenter
+        </a>
+        /
+        <a href="https://developer.apple.com/documentation/mediaplayer/mpremotecommandcenter">
+          MPRemoteCommandCenter
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="doc/img/platform/windows.svg" alt="Windows" width="18" style="vertical-align: middle;">
+        <span style="vertical-align: middle;">Windows</span>
+      </td>
+      <td>
+        <span style="
+          display: inline-block;
+          padding: 4px 10px;
+          border-radius: 8px;
+          background: #C4EED0;
+          color: #0F5223;
+          font-size: 13px;
+          font-weight: 500;
+        ">
+          Available
+        </span>
+      </td>
+      <td>
+        <a href="https://learn.microsoft.com/en-us/windows/uwp/audio-video-camera/system-media-transport-controls">
+          SystemMediaTransportControls (SMTC)
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="doc/img/platform/tux.svg" alt="Linux" width="18" style="vertical-align: middle;">
+        <span style="vertical-align: middle;">Linux</span>
+      </td>
+      <td>
+        <span style="
+          display: inline-block;
+          padding: 4px 10px;
+          border-radius: 8px;
+          background: #E9EEF6;
+          color: #444746;
+          font-size: 13px;
+          font-weight: 500;
+        ">
+          Planned
+        </span>
+      </td>
+      <td>
+        <a href="https://specifications.freedesktop.org/mpris-spec/">
+          MPRIS
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>Web</td>
+      <td>
+        <span style="
+          display: inline-block;
+          padding: 4px 10px;
+          border-radius: 8px;
+          background: #C4EED0;
+          color: #0F5223;
+          font-size: 13px;
+          font-weight: 500;
+        ">
+          Available
+        </span>
+      </td>
+      <td>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Media_Session_API">
+          Media Session API
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Features
 
