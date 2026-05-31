@@ -1,3 +1,12 @@
+## 2.3.0
+* **Perfect iOS Media Controls**:
+  * Registered native `changeShuffleModeCommand` and `changeRepeatModeCommand` targets on iOS/macOS to seamlessly sync repeat and shuffle modes.
+  * Added customizable skip intervals for rewind (backward) and fast-forward (forward) commands (`setSkipIntervals`).
+* **Android Shuffle State Sync**:
+  * Synchronized `shuffleModeEnabled` with Media3's `SimpleBasePlayer` state.
+* **Example App Fixes**:
+  * Fixed reload bug by resetting loaded URL when deactivating the media session.
+
 ## 2.2.0
 * **Professional Adapter Architecture**: Introduced `MediaSessionAdapter` interface to completely decouple player implementations from system-level media session controls.
 * **Copy-Ready Player Adapters**: Provided standalone, copy-ready adapter classes for `just_audio` and `media_kit` in `doc/adapters/` and the official wiki documentation, keeping the core package completely free of third-party player dependencies.

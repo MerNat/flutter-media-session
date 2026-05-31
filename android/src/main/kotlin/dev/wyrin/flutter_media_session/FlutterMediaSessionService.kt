@@ -228,8 +228,8 @@ class FlutterMediaSessionService : MediaSessionService() {
     /**
      * Updates the playback state (status, position, speed) in the system controls.
      */
-    fun updatePlaybackState(status: String, positionMs: Long, speed: Float, bufferedPositionMs: Long, repeatMode: Int) {
-        player.updatePlaybackState(status, positionMs, speed, bufferedPositionMs, repeatMode)
+    fun updatePlaybackState(status: String, positionMs: Long, speed: Float, bufferedPositionMs: Long, repeatMode: Int, shuffleModeEnabled: Boolean) {
+        player.updatePlaybackState(status, positionMs, speed, bufferedPositionMs, repeatMode, shuffleModeEnabled)
     }
 
     /**
@@ -427,11 +427,13 @@ class FlutterMediaSessionService : MediaSessionService() {
             invalidateState()
         }
 
+        private var shuffleModeEnabled: Boolean = false
+
         /**
          * Updates the internal playback state and triggers a state invalidation.
          * Also manages the registration of the ACTION_AUDIO_BECOMING_NOISY receiver.
          */
-        fun updatePlaybackState(status: String, positionMs: Long, speed: Float, bufferedPositionMs: Long, repeatMode: Int) {
+        fun updatePlaybackState(status: String, positionMs: Long, speed: Float, bufferedPositionMs: Long, repeatMode: Int, shuffleModeEnabled: Boolean) {
             val isPlaying = status == "playing"
             
             this.playbackStatus = status
@@ -444,6 +446,7 @@ class FlutterMediaSessionService : MediaSessionService() {
                 2 -> Player.REPEAT_MODE_ONE  // 2 = one in Dart
                 else -> Player.REPEAT_MODE_OFF
             }
+            this.shuffleModeEnabled = shuffleModeEnabled
             invalidateState()
 
             // Manage AudioBecomingNoisy receiver based on playback state
@@ -525,6 +528,7 @@ class FlutterMediaSessionService : MediaSessionService() {
                 .setPlayWhenReady(playWhenReady, Player.PLAY_WHEN_READY_CHANGE_REASON_USER_REQUEST)
                 .setPlaybackState(playerState)
                 .setRepeatMode(repeatMode)
+                .setShuffleModeEnabled(shuffleModeEnabled)
                 .setCurrentMediaItemIndex(0)
                 .setPlaylist(listOf(
                     MediaItemData.Builder("channel_0")
