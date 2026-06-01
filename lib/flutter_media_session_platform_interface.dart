@@ -82,7 +82,12 @@ abstract class FlutterMediaSessionPlatform extends PlatformInterface {
         'setWindowsAppUserModelId() has not been implemented.');
   }
 
-
+  /// Sets the preferred skip intervals for rewind (backward) and fast-forward (forward) commands.
+  ///
+  /// This is currently supported on iOS and macOS.
+  Future<void> setSkipIntervals({int forwardSeconds = 10, int backwardSeconds = 10}) {
+    throw UnimplementedError('setSkipIntervals() has not been implemented.');
+  }
 
   /// Opts the plugin into handling system audio interruptions
   /// (calls, navigation prompts, other apps grabbing audio).

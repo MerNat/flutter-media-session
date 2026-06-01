@@ -70,6 +70,14 @@ class MethodChannelFlutterMediaSession extends FlutterMediaSessionPlatform {
   }
 
   @override
+  Future<void> setSkipIntervals({int forwardSeconds = 10, int backwardSeconds = 10}) async {
+    await methodChannel.invokeMethod('setSkipIntervals', {
+      'forwardSeconds': forwardSeconds,
+      'backwardSeconds': backwardSeconds,
+    });
+  }
+
+  @override
   Future<void> setAutoHandleInterruptions(bool enabled) async {
     await methodChannel.invokeMethod('setAutoHandleInterruptions', enabled);
   }

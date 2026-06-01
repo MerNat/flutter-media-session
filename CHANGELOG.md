@@ -1,8 +1,23 @@
+## 3.0.0-pre.2
+* **Merge 2.3.0 Features**:
+  * Integrated perfected iOS media controls, native repeat/shuffle synchronization, and customizable skip intervals (`setSkipIntervals`).
+  * Integrated Android shuffle state sync using Media3's player state.
+  * Fixed reload bug in example app.
+
 ## 3.0.0-pre.1
 * **API Modernization & Clean Up**:
   * Removed all deprecated legacy manual sync APIs from the public `FlutterMediaSession` class (`updateMetadata`, `updatePlaybackState`, `updateAvailableActions`, `onMediaAction`, and `requestNotificationPermission`).
   * Removed deprecated `setHandlesInterruptions` full-stack across the Dart layers; use `setAutoHandleInterruptions` instead.
   * Updated player adapters (`JustAudioMediaSessionAdapter` and `MediaKitMediaSessionAdapter`) to synchronize metadata and playback state directly using `FlutterMediaSessionPlatform.instance`.
+
+## 2.3.0
+* **Perfect iOS Media Controls**:
+  * Registered native `changeShuffleModeCommand` and `changeRepeatModeCommand` targets on iOS/macOS to seamlessly sync repeat and shuffle modes.
+  * Added customizable skip intervals for rewind (backward) and fast-forward (forward) commands (`setSkipIntervals`).
+* **Android Shuffle State Sync**:
+  * Synchronized `shuffleModeEnabled` with Media3's `SimpleBasePlayer` state.
+* **Example App Fixes**:
+  * Fixed reload bug by resetting loaded URL when deactivating the media session.
 
 ## 2.2.0
 * **Professional Adapter Architecture**: Introduced `MediaSessionAdapter` interface to completely decouple player implementations from system-level media session controls.

@@ -153,6 +153,11 @@ class FlutterMediaSessionWeb extends FlutterMediaSessionPlatform {
   }
 
   @override
+  Future<void> setSkipIntervals({int forwardSeconds = 10, int backwardSeconds = 10}) async {
+    // No-op on web
+  }
+
+  @override
   Future<void> setAutoHandleInterruptions(bool enabled) async {
     // No-op on web: browsers don't expose audio-focus-style interruption
     // events, and the page is typically the only audio source.

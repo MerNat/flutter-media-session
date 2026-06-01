@@ -216,6 +216,7 @@ class _PlayerHomeState extends State<PlayerHome> {
 
   Future<void> _activate() async {
     await _plugin.activate();
+    await _plugin.setSkipIntervals(forwardSeconds: 10, backwardSeconds: 10);
     if (!mounted) return;
     setState(() => _active = true);
     await Future.wait([
@@ -269,6 +270,7 @@ class _PlayerHomeState extends State<PlayerHome> {
       _position = Duration.zero;
       _isSwitchingTrack = false;
       _handlesInterruptions = false;
+      _loadedUrl = null;
     });
   }
 
@@ -897,6 +899,14 @@ class _ExamplePlayerAdapter implements MediaSessionAdapter {
           break;
         case 'skipToPrevious':
           state._prev();
+          break;
+        case 'rewind':
+          final newPos = state._position - const Duration(seconds: 10);
+          state.handleSeekAction(newPos < Duration.zero ? Duration.zero : newPos);
+          break;
+        case 'fastForward':
+          final newPos = state._position + const Duration(seconds: 10);
+          state.handleSeekAction(newPos > state._currentDuration ? state._currentDuration : newPos);
           break;
         case 'seekTo':
           if (action.seekPosition != null) {

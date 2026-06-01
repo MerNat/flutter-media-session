@@ -143,6 +143,16 @@ class FlutterMediaSession {
         displayName: displayName, iconPath: iconPath);
   }
 
+  /// Sets the preferred skip intervals for rewind (backward) and fast-forward (forward) commands.
+  ///
+  /// This is currently supported on iOS and macOS.
+  Future<void> setSkipIntervals({int forwardSeconds = 10, int backwardSeconds = 10}) {
+    return FlutterMediaSessionPlatform.instance.setSkipIntervals(
+      forwardSeconds: forwardSeconds,
+      backwardSeconds: backwardSeconds,
+    );
+  }
+
   /// Opts the plugin into handling system audio interruptions
   /// (calls, navigation prompts, other apps grabbing audio).
   ///

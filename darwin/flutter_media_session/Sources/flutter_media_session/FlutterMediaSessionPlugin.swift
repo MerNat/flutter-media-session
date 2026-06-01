@@ -68,7 +68,25 @@ public class FlutterMediaSessionPlugin: NSObject, FlutterPlugin {
             let status = args["status"] as? String ?? "idle"
             let positionMs = (args["positionMs"] as? NSNumber)?.int64Value ?? 0
             let speed = (args["speed"] as? NSNumber)?.doubleValue ?? 1.0
-            manager?.updatePlaybackState(status: status, positionMs: positionMs, speed: speed)
+            let repeatMode = (args["repeatMode"] as? NSNumber)?.intValue ?? 0
+            let shuffleModeEnabled = args["shuffleModeEnabled"] as? Bool ?? false
+            manager?.updatePlaybackState(
+                status: status,
+                positionMs: positionMs,
+                speed: speed,
+                repeatMode: repeatMode,
+                shuffleModeEnabled: shuffleModeEnabled
+            )
+            result(nil)
+
+        case "setSkipIntervals":
+            guard let args = call.arguments as? [String: Any?] else {
+                result(nil)
+                return
+            }
+            let forwardSeconds = (args["forwardSeconds"] as? NSNumber)?.intValue ?? 10
+            let backwardSeconds = (args["backwardSeconds"] as? NSNumber)?.intValue ?? 10
+            manager?.setSkipIntervals(forwardSeconds: forwardSeconds, backwardSeconds: backwardSeconds)
             result(nil)
 
         case "updateAvailableActions":

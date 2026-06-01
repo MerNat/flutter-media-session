@@ -127,7 +127,8 @@ class FlutterMediaSessionPlugin: FlutterPlugin, MethodCallHandler, ActivityAware
                     val speed = (call.argument<Number>("speed"))?.toFloat() ?: 1.0f
                     val bufferedPositionMs = (call.argument<Number>("bufferedPositionMs"))?.toLong() ?: 0L
                     val repeatMode = (call.argument<Number>("repeatMode"))?.toInt() ?: 0
-                    FlutterMediaSessionService.instance?.updatePlaybackState(status, positionMs, speed, bufferedPositionMs, repeatMode)
+                    val shuffleModeEnabled = call.argument<Boolean>("shuffleModeEnabled") ?: false
+                    FlutterMediaSessionService.instance?.updatePlaybackState(status, positionMs, speed, bufferedPositionMs, repeatMode, shuffleModeEnabled)
                 } else {
                     pendingPlaybackState = arguments
                 }
@@ -255,7 +256,8 @@ class FlutterMediaSessionPlugin: FlutterPlugin, MethodCallHandler, ActivityAware
             val speed = (it["speed"] as? Number)?.toFloat() ?: 1.0f
             val bufferedPositionMs = (it["bufferedPositionMs"] as? Number)?.toLong() ?: 0L
             val repeatMode = (it["repeatMode"] as? Number)?.toInt() ?: 0
-            service.updatePlaybackState(status, positionMs, speed, bufferedPositionMs, repeatMode)
+            val shuffleModeEnabled = it["shuffleModeEnabled"] as? Boolean ?: false
+            service.updatePlaybackState(status, positionMs, speed, bufferedPositionMs, repeatMode, shuffleModeEnabled)
             pendingPlaybackState = null
         }
 

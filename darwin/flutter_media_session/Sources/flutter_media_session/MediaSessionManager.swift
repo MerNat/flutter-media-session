@@ -32,6 +32,8 @@ class MediaSessionManager: NSObject {
         registerCommand(center.stopCommand, action: "stop")
         registerCommand(center.skipBackwardCommand, action: "rewind")
         registerCommand(center.skipForwardCommand, action: "fastForward")
+        registerCommand(center.changeShuffleModeCommand, action: "shuffle")
+        registerCommand(center.changeRepeatModeCommand, action: "repeat")
         registerSeekCommand(center.changePlaybackPositionCommand)
 
         #if os(iOS)
@@ -64,6 +66,8 @@ class MediaSessionManager: NSObject {
             center.stopCommand.removeTarget(target)
             center.skipBackwardCommand.removeTarget(target)
             center.skipForwardCommand.removeTarget(target)
+            center.changeShuffleModeCommand.removeTarget(target)
+            center.changeRepeatModeCommand.removeTarget(target)
             center.changePlaybackPositionCommand.removeTarget(target)
         }
         commandTargets.removeAll()
@@ -73,6 +77,12 @@ class MediaSessionManager: NSObject {
         #if os(iOS)
         unregisterRouteChangeObserver()
         #endif
+    }
+
+    func setSkipIntervals(forwardSeconds: Int, backwardSeconds: Int) {
+        let center = MPRemoteCommandCenter.shared()
+        center.skipForwardCommand.preferredIntervals = [NSNumber(value: forwardSeconds)]
+        center.skipBackwardCommand.preferredIntervals = [NSNumber(value: backwardSeconds)]
     }
 
     // MARK: - Metadata
@@ -100,7 +110,7 @@ class MediaSessionManager: NSObject {
 
     // MARK: - Playback State
 
-    func updatePlaybackState(status: String, positionMs: Int64, speed: Double) {
+    func updatePlaybackState(status: String, positionMs: Int64, speed: Double, repeatMode: Int, shuffleModeEnabled: Bool) {
         #if os(iOS)
         if status == "playing" {
             // Re-assert the audio session: it may be deactivated between
@@ -116,6 +126,20 @@ class MediaSessionManager: NSObject {
         info[MPNowPlayingInfoPropertyDefaultPlaybackRate] = speed
 
         MPNowPlayingInfoCenter.default().nowPlayingInfo = info
+
+        let center = MPRemoteCommandCenter.shared()
+        center.changeShuffleModeCommand.currentShuffleType = shuffleModeEnabled ? .items : .off
+
+        let repeatType: MPRepeatType
+        switch repeatMode {
+        case 1:
+            repeatType = .all
+        case 2:
+            repeatType = .one
+        default:
+            repeatType = .off
+        }
+        center.changeRepeatModeCommand.currentRepeatType = repeatType
     }
 
     // MARK: - Available Actions
@@ -131,6 +155,8 @@ class MediaSessionManager: NSObject {
             center.stopCommand.isEnabled = actions.contains("stop")
             center.skipBackwardCommand.isEnabled = actions.contains("rewind")
             center.skipForwardCommand.isEnabled = actions.contains("fastForward")
+            center.changeShuffleModeCommand.isEnabled = actions.contains("shuffle")
+            center.changeRepeatModeCommand.isEnabled = actions.contains("repeat")
             center.changePlaybackPositionCommand.isEnabled = actions.contains("seekTo")
         } else {
             // nil = enable all
@@ -141,6 +167,8 @@ class MediaSessionManager: NSObject {
             center.stopCommand.isEnabled = true
             center.skipBackwardCommand.isEnabled = true
             center.skipForwardCommand.isEnabled = true
+            center.changeShuffleModeCommand.isEnabled = true
+            center.changeRepeatModeCommand.isEnabled = true
             center.changePlaybackPositionCommand.isEnabled = true
         }
     }
