@@ -17,10 +17,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-    }
-
     sourceSets {
         getByName("main") {
             java.srcDirs("src/main/kotlin")
@@ -48,6 +44,15 @@ android {
                 }
             }
         }
+    }
+}
+
+// Modern Kotlin Gradle DSL (KGP 2.x). Replaces the deprecated
+// `android { kotlinOptions { jvmTarget = ... } }`, which is slated for
+// removal and already unresolved on newer toolchains.
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
 
